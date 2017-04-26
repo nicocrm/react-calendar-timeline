@@ -134,6 +134,11 @@
         } else {
           updateScrollCanvas(visibleTimeStart, visibleTimeEnd)
         }
+      },
+
+      customHeightCalculator: function(item, calculatedHeight) {
+        if(/\d/.test(item.title))
+          return calculatedHeight * 2;
       }
     }
 
