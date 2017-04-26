@@ -75,6 +75,7 @@ export default class ReactCalendarTimeline extends Component {
 
     moveResizeValidator: PropTypes.func,
     customHeightCalculator: PropTypes.func,
+    itemRenderer: PropTypes.func,
 
     dayBackground: PropTypes.func,
 
