@@ -9,6 +9,7 @@ When you submit a PR, add your changes here!
 
 ### Added
 - An option to calculate the item height dynamically
+- contentComponent prop to allow specifying a custom component to render the items
 
 ## [0.11.1]
 ### Fixed
