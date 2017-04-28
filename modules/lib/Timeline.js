@@ -16,7 +16,7 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-require('./Timeline.css');
+require('./Timeline.scss');
 
 var _Items = require('./items/Items');
 
@@ -356,7 +356,8 @@ var ReactCalendarTimeline = function (_Component) {
         onItemDoubleClick: this.props.onItemDoubleClick,
         onItemContextMenu: this.props.onItemContextMenu,
         itemResizing: this.resizingItem,
-        itemResized: this.resizedItem });
+        itemResized: this.resizedItem,
+        itemRenderer: this.props.itemRenderer });
     }
   }, {
     key: 'infoLabel',
@@ -420,7 +421,8 @@ var ReactCalendarTimeline = function (_Component) {
           headerLabelHeight = _props3.headerLabelHeight,
           stackItems = _props3.stackItems,
           fullUpdate = _props3.fullUpdate,
-          itemHeightRatio = _props3.itemHeightRatio;
+          itemHeightRatio = _props3.itemHeightRatio,
+          customHeightCalculator = _props3.customHeightCalculator;
       var _state3 = this.state,
           draggingItem = _state3.draggingItem,
           dragTime = _state3.dragTime,
@@ -458,7 +460,8 @@ var ReactCalendarTimeline = function (_Component) {
             itemHeightRatio: itemHeightRatio,
             fullUpdate: fullUpdate,
             visibleTimeStart: visibleTimeStart,
-            visibleTimeEnd: visibleTimeEnd
+            visibleTimeEnd: visibleTimeEnd,
+            customHeightCalculator: customHeightCalculator
           })
         };
       }).filter(function (i) {
@@ -609,6 +612,8 @@ ReactCalendarTimeline.propTypes = {
   onCanvasDoubleClick: _react.PropTypes.func,
 
   moveResizeValidator: _react.PropTypes.func,
+  customHeightCalculator: _react.PropTypes.func,
+  itemRenderer: _react.PropTypes.func,
 
   dayBackground: _react.PropTypes.func,
 
@@ -664,6 +669,7 @@ ReactCalendarTimeline.defaultProps = {
   onItemContextMenu: null,
 
   moveResizeValidator: null,
+  customHeightCalculator: null,
 
   dayBackground: null,
 

@@ -442,6 +442,16 @@ var Item = function (_Component) {
       }
     }
   }, {
+    key: 'renderContent',
+    value: function renderContent() {
+      var Comp = this.props.itemRenderer;
+      if (Comp) {
+        return _react2.default.createElement(Comp, { item: this.props.item });
+      } else {
+        return this.itemTitle;
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var dimensions = this.props.dimensions;
@@ -480,7 +490,7 @@ var Item = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'rct-item-content' },
-            this.itemTitle
+            this.renderContent()
           )
         ),
         this.props.useResizeHandle ? _react2.default.createElement('div', { ref: 'dragRight', className: 'rct-drag-right' }) : ''
@@ -515,7 +525,8 @@ Item.propTypes = {
   // onDrop: React.PropTypes.func,
   // onResizing: React.PropTypes.func,
   // onResized: React.PropTypes.func,
-  // onContextMenu: React.PropTypes.func
+  // onContextMenu: React.PropTypes.func,
+  // itemRenderer: React.PropTypes.func
 };
 Item.defaultProps = {
   selected: false

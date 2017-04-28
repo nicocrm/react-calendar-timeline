@@ -140,7 +140,8 @@ function calculateDimensions(_ref) {
       itemHeightRatio = _ref.itemHeightRatio,
       fullUpdate = _ref.fullUpdate,
       visibleTimeStart = _ref.visibleTimeStart,
-      visibleTimeEnd = _ref.visibleTimeEnd;
+      visibleTimeEnd = _ref.visibleTimeEnd,
+      customHeightCalculator = _ref.customHeightCalculator;
 
   var itemId = _get(item, keys.itemIdKey);
   var itemTimeStart = _get(item, keys.itemTimeStartKey);
@@ -193,6 +194,10 @@ function calculateDimensions(_ref) {
 
   var ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth);
   var h = lineHeight * itemHeightRatio;
+  var verticalMargin = lineHeight - h;
+  if (customHeightCalculator) {
+    h = customHeightCalculator(item, h) || h;
+  }
 
   var dimensions = {
     left: (x - canvasTimeStart) * ratio,
@@ -204,7 +209,7 @@ function calculateDimensions(_ref) {
     collisionLeft: collisionX,
     originalLeft: itemTimeStart,
     collisionWidth: collisionW,
-    lineHeight: lineHeight,
+    lineHeight: h + verticalMargin,
     isDragging: isDragging,
     clippedLeft: clippedLeft,
     clippedRight: clippedRight
@@ -282,8 +287,8 @@ function stack(items, groupOrders, lineHeight, headerHeight, force) {
         verticalMargin = item.dimensions.lineHeight - item.dimensions.height;
 
         if (item.dimensions.stack && item.dimensions.top === null) {
-          item.dimensions.top = totalHeight + verticalMargin;
           groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
+          item.dimensions.top = totalHeight + verticalMargin;
           do {
             var collidingItem = null;
             for (var j = 0, jj = group.length; j < jj; j++) {
