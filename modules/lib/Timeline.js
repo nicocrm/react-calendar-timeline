@@ -397,6 +397,7 @@ var ReactCalendarTimeline = function (_Component) {
       return _react2.default.createElement(
         _Sidebar2.default,
         { groups: this.props.groups,
+          groupRenderer: this.props.groupRenderer,
           keys: this.props.keys,
 
           width: this.props.sidebarWidth,
@@ -614,6 +615,7 @@ ReactCalendarTimeline.propTypes = {
   moveResizeValidator: _react.PropTypes.func,
   customHeightCalculator: _react.PropTypes.func,
   itemRenderer: _react.PropTypes.func,
+  groupRenderer: _react.PropTypes.func,
 
   dayBackground: _react.PropTypes.func,
 

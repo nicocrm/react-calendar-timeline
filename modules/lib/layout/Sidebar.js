@@ -89,8 +89,19 @@ var Sidebar = function (_Component) {
       this.setComponentTop();
     }
   }, {
+    key: 'renderGroupContent',
+    value: function renderGroupContent(group, groupTitleKey) {
+      if (this.props.groupRenderer) {
+        return _react2.default.createElement(this.props.groupRenderer, { group: group });
+      } else {
+        return (0, _utils._get)(group, groupTitleKey);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var _props = this.props,
           fixedHeader = _props.fixedHeader,
           width = _props.width,
@@ -152,7 +163,7 @@ var Sidebar = function (_Component) {
         groupLines.push(_react2.default.createElement(
           'div',
           { key: (0, _utils._get)(group, groupIdKey), className: 'rct-sidebar-row' + (i % 2 === 0 ? ' rct-sidebar-row-even' : ' rct-sidebar-row-odd'), style: elementStyle },
-          (0, _utils._get)(group, groupTitleKey)
+          _this3.renderGroupContent(group, groupTitleKey)
         ));
         i += 1;
       });
@@ -183,6 +194,7 @@ Sidebar.propTypes = {
   zIndex: _react2.default.PropTypes.number,
   fixedHeader: _react2.default.PropTypes.oneOf(['fixed', 'absolute', 'none']),
   keys: _react2.default.PropTypes.object.isRequired,
+  groupRenderer: _react2.default.PropTypes.func,
   children: _react2.default.PropTypes.node
 };
 Sidebar.defaultProps = {
