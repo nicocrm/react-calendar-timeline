@@ -245,7 +245,7 @@ function (action, item, time, resizeEdge) {
 }
 ```
 
-### customHeightCalculator(item, defaultHeight)
+### customHeightCalculator(item, itemWidth, defaultHeight)
 This function is called to calculate the height for a specific item, if the items need to have variable height.
 
 ### defaultTimeStart and defaultTimeEnd

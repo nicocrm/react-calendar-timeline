@@ -141,16 +141,17 @@ export function calculateDimensions ({ item, order, keys, canvasTimeStart, canva
   }
 
   const ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth)
+  const width = Math.max(w * ratio, 3)
   let h = lineHeight * itemHeightRatio
-  const verticalMargin = lineHeight - h
   if(customHeightCalculator) {
-    h = customHeightCalculator(item, h) || h
+    h = customHeightCalculator(item, width, h) || h
   }
+  const verticalMargin = lineHeight - h
 
   const dimensions = {
     left: (x - canvasTimeStart) * ratio,
     top: null,
-    width: Math.max(w * ratio, 3),
+    width,
     height: h,
     order: isDragging ? newGroupOrder : order,
     stack: true,
