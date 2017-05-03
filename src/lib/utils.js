@@ -143,10 +143,11 @@ export function calculateDimensions ({ item, order, keys, canvasTimeStart, canva
   const ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth)
   const width = Math.max(w * ratio, 3)
   let h = lineHeight * itemHeightRatio
+  // get the margin WITHOUT the custom height
+  const verticalMargin = lineHeight - h
   if(customHeightCalculator) {
     h = customHeightCalculator(item, width, h) || h
   }
-  const verticalMargin = lineHeight - h
 
   const dimensions = {
     left: (x - canvasTimeStart) * ratio,
