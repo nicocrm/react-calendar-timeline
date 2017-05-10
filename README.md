@@ -95,7 +95,7 @@ Expects either a vanilla JS array or an immutableJS array, consisting of objects
 }
 ```
 
-The preferred (fastest) option is to give unix timestamps in milliseconds for `start_time` and `end_time`. Objects that convert to them (java Date or moment()) will also work, but will be a lot slower.
+The preferred (fastest) option is to give unix timestamps in milliseconds for `start_time` and `end_time`. Objects that convert to them (JavaScript Date or moment()) will also work, but will be a lot slower.
 
 ### keys
 An array specifying keys in the `items` and `groups` objects. Defaults to
@@ -278,10 +278,10 @@ function (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
 ```
 
 ### onTimeInit(visibleTimeStart, visibleTimeEnd)
-Called when the calendar is first initialised.  `visibleTimeStart` and `visibleTimeEnd` are unix timestamps in milliseconds.
+Called when the calendar is first initialised. `visibleTimeStart` and `visibleTimeEnd` are unix timestamps in milliseconds.
 
 ### onBoundsChange(canvasTimeStart, canvasTimeEnd)
-Called when the bounds in the calendar's canvas change. Use it for example to load new data to display. (see "Behind the scenes" below).  `canvasTimeStart` and `canvasTimeEnd` are unix timestamps in milliseconds.
+Called when the bounds in the calendar's canvas change. Use it for example to load new data to display. (see "Behind the scenes" below). `canvasTimeStart` and `canvasTimeEnd` are unix timestamps in milliseconds.
 
 ### itemRenderer
 React component that will be used to render the item content.  Will be
