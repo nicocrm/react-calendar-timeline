@@ -8,7 +8,7 @@ Demo here: http://namespace.ee/react-calendar-timeline/
 
 ## Getting started
 
-```
+```bash
 # via yarn
 yarn add react-calendar-timeline
 
@@ -20,7 +20,7 @@ npm install --save react-calendar-timeline
 
 You need to install them separately:
 
-```
+```bash
 # via yarn
 yarn add react react-dom # you probably already have these
 yarn add moment interact.js
@@ -69,7 +69,7 @@ The component can take many props:
 
 ### groups
 Expects either a vanilla JS array or an immutableJS array, consisting of objects with the following attributes:
-```
+```js
 {
   id: 1,
   title: 'group 1'
@@ -78,7 +78,7 @@ Expects either a vanilla JS array or an immutableJS array, consisting of objects
 
 ### items
 Expects either a vanilla JS array or an immutableJS array, consisting of objects with the following attributes:
-```
+```js
 {
   id: 1,
   group: 1,
@@ -99,7 +99,7 @@ The preferred (fastest) option is to give unix timestamps in milliseconds for `s
 
 ### keys
 An array specifying keys in the `items` and `groups` objects. Defaults to
-```
+```js
 {
   groupIdKey: 'id',
   groupTitleKey: 'title',
@@ -303,7 +303,7 @@ All children of the Timeline component will be displayed above the sidebar. Use 
 
 You will then need to override the default CSS rule:
 
-```
+```css
 .react-calendar-timeline .rct-items .rct-item.analysis {
   backgroundColor: #68efad;
 }
@@ -319,3 +319,27 @@ This results in a visually endless scrolling canvas with optimal performance.
 
 Extensibility and usability: While some parameters (`onTimeChange`, `moveResizeValidator`) might be hard to configure, these are design decisions to make it as extensible as possible. If you have recipes for common tasks regarding those parameters, send a PR to add them to this doc.
 
+## Contribute
+If you like to improve React Calendar Timeline fork the repo and get started by running the following:
+
+```bash
+$ git clone https://github.com/namespace-ee/react-calendar-timeline.git react-calendar-timeline
+$ cd react-calendar-timeline
+$ npm install
+$ npm start
+```
+
+Check http://0.0.0.0:8080/ in your browser and have fun!
+
+Please run `npm run lint` before you send a pull request. `npm run jest` runs the tests.
+
+
+<!--
+
+If you are core member team to patch npm run:
+
+```bash
+npm version patch
+```
+
+-->

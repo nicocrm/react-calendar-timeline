@@ -430,8 +430,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onItemDoubleClick: this.props.onItemDoubleClick,
 	        onItemContextMenu: this.props.onItemContextMenu,
 	        itemResizing: this.resizingItem,
-	        itemResized: this.resizedItem,
-	        itemRenderer: this.props.itemRenderer });
+	        itemResized: this.resizedItem });
 	    }
 	  }, {
 	    key: 'infoLabel',
@@ -495,8 +494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          headerLabelHeight = _props3.headerLabelHeight,
 	          stackItems = _props3.stackItems,
 	          fullUpdate = _props3.fullUpdate,
-	          itemHeightRatio = _props3.itemHeightRatio,
-	          customHeightCalculator = _props3.customHeightCalculator;
+	          itemHeightRatio = _props3.itemHeightRatio;
 	      var _state3 = this.state,
 	          draggingItem = _state3.draggingItem,
 	          dragTime = _state3.dragTime,
@@ -534,8 +532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            itemHeightRatio: itemHeightRatio,
 	            fullUpdate: fullUpdate,
 	            visibleTimeStart: visibleTimeStart,
-	            visibleTimeEnd: visibleTimeEnd,
-	            customHeightCalculator: customHeightCalculator
+	            visibleTimeEnd: visibleTimeEnd
 	          })
 	        };
 	      }).filter(function (i) {
@@ -686,8 +683,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onCanvasDoubleClick: _react.PropTypes.func,
 	
 	  moveResizeValidator: _react.PropTypes.func,
-	  customHeightCalculator: _react.PropTypes.func,
-	  itemRenderer: _react.PropTypes.func,
 	
 	  dayBackground: _react.PropTypes.func,
 	
@@ -743,7 +738,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onItemContextMenu: null,
 	
 	  moveResizeValidator: null,
-	  customHeightCalculator: null,
 	
 	  dayBackground: null,
 	
@@ -1305,8 +1299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            onDrop: _this2.props.itemDrop,
 	            onItemDoubleClick: _this2.props.onItemDoubleClick,
 	            onContextMenu: _this2.props.onItemContextMenu,
-	            onSelect: _this2.props.itemSelect,
-	            itemRenderer: _this2.props.itemRenderer });
+	            onSelect: _this2.props.itemSelect });
 	        })
 	      );
 	    }
@@ -1343,9 +1336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  itemResized: _react.PropTypes.func,
 	
 	  onItemDoubleClick: _react.PropTypes.func,
-	  onItemContextMenu: _react.PropTypes.func,
-	
-	  itemRenderer: _react.PropTypes.func
+	  onItemContextMenu: _react.PropTypes.func
 	};
 	Items.defaultProps = {};
 	exports.default = Items;
@@ -1798,16 +1789,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }, {
-	    key: 'renderContent',
-	    value: function renderContent() {
-	      var Comp = this.props.itemRenderer;
-	      if (Comp) {
-	        return _react2.default.createElement(Comp, { item: this.props.item });
-	      } else {
-	        return this.itemTitle;
-	      }
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var dimensions = this.props.dimensions;
@@ -1846,7 +1827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'rct-item-content' },
-	            this.renderContent()
+	            this.itemTitle
 	          )
 	        ),
 	        this.props.useResizeHandle ? _react2.default.createElement('div', { ref: 'dragRight', className: 'rct-drag-right' }) : ''
@@ -1881,8 +1862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // onDrop: React.PropTypes.func,
 	  // onResizing: React.PropTypes.func,
 	  // onResized: React.PropTypes.func,
-	  // onContextMenu: React.PropTypes.func,
-	  // itemRenderer: React.PropTypes.func
+	  // onContextMenu: React.PropTypes.func
 	};
 	Item.defaultProps = {
 	  selected: false
@@ -1922,7 +1902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.stack = stack;
 	exports.nostack = nostack;
 	exports.keyBy = keyBy;
-	exports.groupBy = groupBy;
+	exports.getGroupedItems = getGroupedItems;
 	exports.hasSomeParentTheClass = hasSomeParentTheClass;
 	exports.createGradientPattern = createGradientPattern;
 	exports.deepObjectCompare = deepObjectCompare;
@@ -2041,8 +2021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      itemHeightRatio = _ref.itemHeightRatio,
 	      fullUpdate = _ref.fullUpdate,
 	      visibleTimeStart = _ref.visibleTimeStart,
-	      visibleTimeEnd = _ref.visibleTimeEnd,
-	      customHeightCalculator = _ref.customHeightCalculator;
+	      visibleTimeEnd = _ref.visibleTimeEnd;
 	
 	  var itemId = _get(item, keys.itemIdKey);
 	  var itemTimeStart = _get(item, keys.itemTimeStartKey);
@@ -2095,10 +2074,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth);
 	  var h = lineHeight * itemHeightRatio;
-	  var verticalMargin = lineHeight - h;
-	  if (customHeightCalculator) {
-	    h = customHeightCalculator(item, h) || h;
-	  }
 	
 	  var dimensions = {
 	    left: (x - canvasTimeStart) * ratio,
@@ -2110,7 +2085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    collisionLeft: collisionX,
 	    originalLeft: itemTimeStart,
 	    collisionWidth: collisionW,
-	    lineHeight: h + verticalMargin,
+	    lineHeight: lineHeight,
 	    isDragging: isDragging,
 	    clippedLeft: clippedLeft,
 	    clippedRight: clippedRight
@@ -2150,15 +2125,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function stack(items, groupOrders, lineHeight, headerHeight, force) {
 	  var i, iMax;
-	
 	  var totalHeight = headerHeight;
 	
 	  var groupHeights = {};
 	  var groupTops = {};
 	
-	  var groupedItems = groupBy(items, function (item) {
-	    return item.dimensions.order;
-	  });
+	  var groupedItems = getGroupedItems(items, groupOrders);
 	
 	  if (force) {
 	    // reset top position of all items
@@ -2167,67 +2139,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
+	  groupedItems.forEach(function (group, index, array) {
+	    // calculate new, non-overlapping positions
+	    groupTops[index] = totalHeight;
 	
-	  try {
-	    for (var _iterator = Object.keys(groupOrders)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var url = _step.value;
+	    var groupHeight = 0;
+	    var verticalMargin = 0;
+	    for (i = 0, iMax = group.length; i < iMax; i++) {
+	      var item = group[i];
+	      verticalMargin = item.dimensions.lineHeight - item.dimensions.height;
 	
-	      var key = groupOrders[url];
-	      // calculate new, non-overlapping positions
-	      var group = groupedItems[key] || [];
-	
-	      groupTops[key] = totalHeight;
-	
-	      var groupHeight = 0;
-	      var verticalMargin = 0;
-	      for (i = 0, iMax = group.length; i < iMax; i++) {
-	        var item = group[i];
-	        verticalMargin = item.dimensions.lineHeight - item.dimensions.height;
-	
-	        if (item.dimensions.stack && item.dimensions.top === null) {
-	          groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
-	          item.dimensions.top = totalHeight + verticalMargin;
-	          do {
-	            var collidingItem = null;
-	            for (var j = 0, jj = group.length; j < jj; j++) {
-	              var other = group[j];
-	              if (other.top !== null && other !== item && other.dimensions.stack && collision(item.dimensions, other.dimensions, item.dimensions.lineHeight)) {
-	                collidingItem = other;
-	                break;
-	              } else {
-	                // console.log('dont test', other.top !== null, other !== item, other.stack);
-	              }
+	      if (item.dimensions.stack && item.dimensions.top === null) {
+	        item.dimensions.top = totalHeight + verticalMargin;
+	        groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
+	        do {
+	          var collidingItem = null;
+	          for (var j = 0, jj = group.length; j < jj; j++) {
+	            var other = group[j];
+	            if (other.top !== null && other !== item && other.dimensions.stack && collision(item.dimensions, other.dimensions, item.dimensions.lineHeight)) {
+	              collidingItem = other;
+	              break;
+	            } else {
+	              // console.log('dont test', other.top !== null, other !== item, other.stack);
 	            }
+	          }
 	
-	            if (collidingItem != null) {
-	              // There is a collision. Reposition the items above the colliding element
-	              item.dimensions.top = collidingItem.dimensions.top + collidingItem.dimensions.lineHeight;
-	              groupHeight = Math.max(groupHeight, item.dimensions.top + item.dimensions.height - totalHeight);
-	            }
-	          } while (collidingItem);
-	        }
-	      }
-	      groupHeights[key] = Math.max(groupHeight + verticalMargin, lineHeight);
-	      totalHeight += Math.max(groupHeight + verticalMargin, lineHeight);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
+	          if (collidingItem != null) {
+	            // There is a collision. Reposition the items above the colliding element
+	            item.dimensions.top = collidingItem.dimensions.top + collidingItem.dimensions.lineHeight;
+	            groupHeight = Math.max(groupHeight, item.dimensions.top + item.dimensions.height - totalHeight);
+	          }
+	        } while (collidingItem);
 	      }
 	    }
-	  }
-	
+	    groupHeights[index] = Math.max(groupHeight + verticalMargin, lineHeight);
+	    totalHeight += Math.max(groupHeight + verticalMargin, lineHeight);
+	  });
 	  return {
 	    height: totalHeight,
 	    groupHeights: groupHeights,
@@ -2243,9 +2190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var groupHeights = {};
 	  var groupTops = {};
 	
-	  var groupedItems = groupBy(items, function (item) {
-	    return item.dimensions.order;
-	  });
+	  var groupedItems = getGroupedItems(items, groupOrders);
 	
 	  if (force) {
 	    // reset top position of all items
@@ -2254,48 +2199,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	
-	  var _iteratorNormalCompletion2 = true;
-	  var _didIteratorError2 = false;
-	  var _iteratorError2 = undefined;
+	  groupedItems.forEach(function (group, index, array) {
+	    // calculate new, non-overlapping positions
+	    groupTops[index] = totalHeight;
 	
-	  try {
-	    for (var _iterator2 = Object.keys(groupOrders)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	      var url = _step2.value;
+	    var groupHeight = 0;
+	    for (i = 0, iMax = group.length; i < iMax; i++) {
+	      var item = group[i];
+	      var verticalMargin = (item.dimensions.lineHeight - item.dimensions.height) / 2;
 	
-	      var key = groupOrders[url];
-	      // calculate new, non-overlapping positions
-	      var group = groupedItems[key] || [];
-	
-	      groupTops[key] = totalHeight;
-	
-	      var groupHeight = 0;
-	      for (i = 0, iMax = group.length; i < iMax; i++) {
-	        var item = group[i];
-	        var verticalMargin = (item.dimensions.lineHeight - item.dimensions.height) / 2;
-	
-	        if (item.dimensions.top === null) {
-	          item.dimensions.top = totalHeight + verticalMargin;
-	          groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
-	        }
-	      }
-	      groupHeights[key] = Math.max(groupHeight, lineHeight);
-	      totalHeight += Math.max(groupHeight, lineHeight);
-	    }
-	  } catch (err) {
-	    _didIteratorError2 = true;
-	    _iteratorError2 = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	        _iterator2.return();
-	      }
-	    } finally {
-	      if (_didIteratorError2) {
-	        throw _iteratorError2;
+	      if (item.dimensions.top === null) {
+	        item.dimensions.top = totalHeight + verticalMargin;
+	        groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
 	      }
 	    }
-	  }
-	
+	    groupHeights[index] = Math.max(groupHeight, lineHeight);
+	    totalHeight += Math.max(groupHeight, lineHeight);
+	  });
 	  return {
 	    height: totalHeight,
 	    groupHeights: groupHeights,
@@ -2313,18 +2233,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return obj;
 	}
 	
-	function groupBy(collection, groupFunction) {
-	  var obj = {};
+	function getGroupedItems(items, groupOrders) {
+	  var arr = [];
 	
-	  collection.forEach(function (element, index, array) {
-	    var key = groupFunction(element);
-	    if (!obj[key]) {
-	      obj[key] = [];
-	    }
-	    obj[key].push(element);
-	  });
+	  // Initialize with empty arrays for each group
+	  for (var i = 0; i < Object.keys(groupOrders).length; i++) {
+	    arr[i] = [];
+	  }
+	  // Populate groups
+	  for (var _i = 0; _i < items.length; _i++) {
+	    arr[items[_i].dimensions.order].push(items[_i]);
+	  }
 	
-	  return obj;
+	  return arr;
 	}
 	
 	function hasSomeParentTheClass(element, classname) {
