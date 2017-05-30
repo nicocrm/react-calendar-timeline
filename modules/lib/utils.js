@@ -140,7 +140,8 @@ function calculateDimensions(_ref) {
       itemHeightRatio = _ref.itemHeightRatio,
       fullUpdate = _ref.fullUpdate,
       visibleTimeStart = _ref.visibleTimeStart,
-      visibleTimeEnd = _ref.visibleTimeEnd;
+      visibleTimeEnd = _ref.visibleTimeEnd,
+      customHeightCalculator = _ref.customHeightCalculator;
 
   var itemId = _get(item, keys.itemIdKey);
   var itemTimeStart = _get(item, keys.itemTimeStartKey);
@@ -192,19 +193,25 @@ function calculateDimensions(_ref) {
   }
 
   var ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth);
+  var width = Math.max(w * ratio, 3);
   var h = lineHeight * itemHeightRatio;
+  // get the margin WITHOUT the custom height
+  var verticalMargin = lineHeight - h;
+  if (customHeightCalculator) {
+    h = customHeightCalculator(item, width, h) || h;
+  }
 
   var dimensions = {
     left: (x - canvasTimeStart) * ratio,
     top: null,
-    width: Math.max(w * ratio, 3),
+    width: width,
     height: h,
     order: isDragging ? newGroupOrder : order,
     stack: true,
     collisionLeft: collisionX,
     originalLeft: itemTimeStart,
     collisionWidth: collisionW,
-    lineHeight: lineHeight,
+    lineHeight: h + verticalMargin,
     isDragging: isDragging,
     clippedLeft: clippedLeft,
     clippedRight: clippedRight
@@ -269,13 +276,13 @@ function stack(items, groupOrders, lineHeight, headerHeight, force) {
       verticalMargin = item.dimensions.lineHeight - item.dimensions.height;
 
       if (item.dimensions.stack && item.dimensions.top === null) {
-        item.dimensions.top = totalHeight + verticalMargin;
         groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
+        item.dimensions.top = totalHeight + verticalMargin;
         do {
           var collidingItem = null;
           for (var j = 0, jj = group.length; j < jj; j++) {
             var other = group[j];
-            if (other.top !== null && other !== item && other.dimensions.stack && collision(item.dimensions, other.dimensions, item.dimensions.lineHeight)) {
+            if (other.dimensions.top !== null && other !== item && other.dimensions.stack && collision(item.dimensions, other.dimensions, item.dimensions.lineHeight)) {
               collidingItem = other;
               break;
             } else {
