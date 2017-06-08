@@ -424,9 +424,12 @@ export default class ReactCalendarTimeline extends Component {
 
     if (resetCanvas || forceUpdateDimensions || fullUpdate) {
       const canvasTimeStart = newState.canvasTimeStart ? newState.canvasTimeStart : oldCanvasTimeStart
+      const {width: containerWidth} = this.refs.container.getBoundingClientRect()
+      let width = containerWidth - this.props.sidebarWidth
       const {
         dimensionItems, height, groupHeights, groupTops
-      } = this.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, this.state.width, fullUpdate)
+      } = this.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, width, fullUpdate)
+      newState.width = width
       newState.dimensionItems = dimensionItems
       newState.height = height
       newState.groupHeights = groupHeights
