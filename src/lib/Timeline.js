@@ -10,7 +10,7 @@ import VerticalLines from './lines/VerticalLines'
 import HorizontalLines from './lines/HorizontalLines'
 import TodayLine from './lines/TodayLine'
 
-import { getMinUnit, getNextUnit, getParentPosition, _get, _length, stack, nostack, calculateDimensions, getGroupOrders, getVisibleItems, hasSomeParentTheClass } from './utils.js'
+import { getMinUnit, getNextUnit, getParentPosition, _get, _length, stack, nostack, calculateDimensions, getGroupOrders, getVisibleItems, hasSomeParentTheClass, debounce } from './utils.js'
 
 const defaultKeys = {
   groupIdKey: 'id',
@@ -229,6 +229,7 @@ export default class ReactCalendarTimeline extends Component {
     this.refs.scrollComponent.addEventListener('touchstart', this.touchStart)
     this.refs.scrollComponent.addEventListener('touchmove', this.touchMove)
     this.refs.scrollComponent.addEventListener('touchend', this.touchEnd)
+    this.refs.container.addEventListener('transitionend', this.transitionEnd)
   }
 
   componentWillUnmount () {
@@ -236,6 +237,7 @@ export default class ReactCalendarTimeline extends Component {
     this.refs.scrollComponent.removeEventListener('touchstart', this.touchStart)
     this.refs.scrollComponent.removeEventListener('touchmove', this.touchMove)
     this.refs.scrollComponent.removeEventListener('touchend', this.touchEnd)
+    this.refs.container.removeEventListener('transitionend', this.transitionEnd)
   }
 
   touchStart = (e) => {
@@ -313,6 +315,10 @@ export default class ReactCalendarTimeline extends Component {
       this.singleTouchStart = null
     }
   }
+
+  transitionEnd = debounce(() => {
+    this.resize()
+  }, 250)
 
   resize () {
     // FIXME currently when the component creates a scroll the scrollbar is not used in the initial width calculation, resizing fixes this

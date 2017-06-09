@@ -165,6 +165,7 @@ var ReactCalendarTimeline = function (_Component) {
       this.refs.scrollComponent.addEventListener('touchstart', this.touchStart);
       this.refs.scrollComponent.addEventListener('touchmove', this.touchMove);
       this.refs.scrollComponent.addEventListener('touchend', this.touchEnd);
+      this.refs.container.addEventListener('transitionend', this.transitionEnd);
     }
   }, {
     key: 'componentWillUnmount',
@@ -173,6 +174,7 @@ var ReactCalendarTimeline = function (_Component) {
       this.refs.scrollComponent.removeEventListener('touchstart', this.touchStart);
       this.refs.scrollComponent.removeEventListener('touchmove', this.touchMove);
       this.refs.scrollComponent.removeEventListener('touchend', this.touchEnd);
+      this.refs.container.removeEventListener('transitionend', this.transitionEnd);
     }
   }, {
     key: 'resize',
@@ -774,6 +776,10 @@ var _initialiseProps = function _initialiseProps() {
       _this3.singleTouchStart = null;
     }
   };
+
+  this.transitionEnd = (0, _utils.debounce)(function () {
+    _this3.resize();
+  }, 250);
 
   this.onScroll = function () {
     var scrollComponent = _this3.refs.scrollComponent;
