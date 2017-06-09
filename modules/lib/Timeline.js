@@ -844,12 +844,18 @@ var _initialiseProps = function _initialiseProps() {
     if (resetCanvas || forceUpdateDimensions || fullUpdate) {
       var canvasTimeStart = newState.canvasTimeStart ? newState.canvasTimeStart : oldCanvasTimeStart;
 
-      var _stackItems3 = _this3.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, _this3.state.width, fullUpdate),
+      var _refs$container$getBo2 = _this3.refs.container.getBoundingClientRect(),
+          containerWidth = _refs$container$getBo2.width;
+
+      var width = containerWidth - _this3.props.sidebarWidth;
+
+      var _stackItems3 = _this3.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, width, fullUpdate),
           dimensionItems = _stackItems3.dimensionItems,
           height = _stackItems3.height,
           groupHeights = _stackItems3.groupHeights,
           groupTops = _stackItems3.groupTops;
 
+      newState.width = width;
       newState.dimensionItems = dimensionItems;
       newState.height = height;
       newState.groupHeights = groupHeights;
