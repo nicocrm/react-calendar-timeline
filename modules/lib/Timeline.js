@@ -778,6 +778,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.transitionEnd = (0, _utils.debounce)(function () {
+    if (!_this3.refs.container) return;
     _this3.resize();
   }, 250);
 

@@ -317,6 +317,8 @@ export default class ReactCalendarTimeline extends Component {
   }
 
   transitionEnd = debounce(() => {
+    if (!this.refs.container)
+      return
     this.resize()
   }, 250)
 
