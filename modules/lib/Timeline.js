@@ -513,6 +513,14 @@ var ReactCalendarTimeline = function (_Component) {
         groupHeights = stackResults.groupHeights;
         groupTops = stackResults.groupTops;
       }
+      if (this.props.minHeight && height < this.props.minHeight && (0, _utils._length)(groups) > 0) {
+        var lineCount = (0, _utils._length)(groups);
+        var perGroup = this.props.minHeight / lineCount;
+        for (var i = 0; i < lineCount; i++) {
+          groupHeights[i] += perGroup;
+        }
+        height = this.props.minHeight;
+      }
 
       var outerComponentStyle = {
         height: height + 'px'
@@ -582,6 +590,7 @@ ReactCalendarTimeline.propTypes = {
   lineHeight: _react.PropTypes.number,
   headerLabelGroupHeight: _react.PropTypes.number,
   headerLabelHeight: _react.PropTypes.number,
+  minHeight: _react.PropTypes.number,
   itemHeightRatio: _react.PropTypes.number,
 
   minZoom: _react.PropTypes.number,
@@ -643,6 +652,7 @@ ReactCalendarTimeline.defaultProps = {
   lineHeight: 30,
   headerLabelGroupHeight: 30,
   headerLabelHeight: 30,
+  minHeight: 0,
   itemHeightRatio: 0.65,
 
   minZoom: 60 * 60 * 1000, // 1 hour
