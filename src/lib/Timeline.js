@@ -45,6 +45,7 @@ export default class ReactCalendarTimeline extends Component {
     lineHeight: PropTypes.number,
     headerLabelGroupHeight: PropTypes.number,
     headerLabelHeight: PropTypes.number,
+    minHeight: PropTypes.number,
     itemHeightRatio: PropTypes.number,
 
     minZoom: PropTypes.number,
@@ -107,6 +108,7 @@ export default class ReactCalendarTimeline extends Component {
     lineHeight: 30,
     headerLabelGroupHeight: 30,
     headerLabelHeight: 30,
+    minHeight: 0,
     itemHeightRatio: 0.65,
 
     minZoom: 60 * 60 * 1000, // 1 hour
@@ -844,6 +846,14 @@ export default class ReactCalendarTimeline extends Component {
       height = stackResults.height
       groupHeights = stackResults.groupHeights
       groupTops = stackResults.groupTops
+    }
+    if (this.props.minHeight && height < this.props.minHeight && _length(groups) > 0) {
+      const lineCount = _length(groups)
+      const perGroup = this.props.minHeight / lineCount
+      for (let i = 0; i < lineCount; i++) {
+        groupHeights[i] += perGroup
+      }
+      height = this.props.minHeight
     }
 
     const outerComponentStyle = {

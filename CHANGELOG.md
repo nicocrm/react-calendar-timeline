@@ -11,6 +11,7 @@ When you submit a PR, add your changes here!
 - An option to calculate the item height dynamically
 - itemRenderer prop to allow specifying a custom component to render the items
 - groupRenderer prop to allow specifying a custom component to render the groups
+- A minHeight property to ensure the timeline has a specified minimum height and excess space is spread among groups.
 
 ## [0.11.1]
 ### Fixed
