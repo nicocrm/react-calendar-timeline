@@ -846,7 +846,7 @@ var _initialiseProps = function _initialiseProps() {
       newState.canvasTimeStart = visibleTimeStart - newZoom;
       _this3.refs.scrollComponent.scrollLeft = _this3.state.width;
 
-      if (_this3.props.onBoundsChange) {
+      if (!canKeepCanvas && _this3.props.onBoundsChange) {
         _this3.props.onBoundsChange(newState.canvasTimeStart, newState.canvasTimeStart + newZoom * 3);
       }
     }
