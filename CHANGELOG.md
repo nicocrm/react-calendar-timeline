@@ -8,7 +8,7 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 When you submit a PR, add your changes here!
 
 ### Added
-- An option to calculate the item height dynamically
+- A minHeight property to ensure the timeline has a specified minimum height and excess space is spread among groups.
 
 ## [0.11.1]
 ### Fixed

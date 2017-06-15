@@ -149,6 +149,10 @@ Height of the top header line. Default `30`
 ### headerLabelHeight
 Height of the bottom header line. Default `30`
 
+### minHeight
+Min height for the timeline.  If specified and higher than the calculated height, the excedent will be spread evenly across all groups.
+This is in addition to the header height.
+
 ### itemHeightRatio
 What percentage of the height of the line is taken by the item? Default `0.65`
 
