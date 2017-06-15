@@ -121,6 +121,7 @@ export default class ReactCalendarTimeline extends Component {
     moveResizeValidator: PropTypes.func,
     itemRenderer: PropTypes.func,
     groupRenderer: PropTypes.func,
+    customHeightCalculator: PropTypes.func,
 
     dayBackground: PropTypes.func,
 
@@ -239,6 +240,7 @@ export default class ReactCalendarTimeline extends Component {
     onCanvasMouseMove: null,
 
     moveResizeValidator: null,
+    customHeightCalculator: null,
 
     dayBackground: null,
 
@@ -959,7 +961,7 @@ export default class ReactCalendarTimeline extends Component {
       }
     }
 
-    const { keys, dragSnap, lineHeight, headerLabelGroupHeight, headerLabelHeight, stackItems, fullUpdate, itemHeightRatio } = this.props
+    const { keys, dragSnap, lineHeight, headerLabelGroupHeight, headerLabelHeight, stackItems, fullUpdate, itemHeightRatio, customHeightCalculator } = this.props
     const { draggingItem, dragTime, resizingItem, resizingEdge, resizeTime, newGroupOrder } = this.state
     const zoom = visibleTimeEnd - visibleTimeStart
     const canvasTimeEnd = canvasTimeStart + zoom * 3
@@ -990,7 +992,8 @@ export default class ReactCalendarTimeline extends Component {
           itemHeightRatio,
           fullUpdate,
           visibleTimeStart,
-          visibleTimeEnd
+          visibleTimeEnd,
+          customHeightCalculator
         })
       }
     }).filter(i => i.dimensions)

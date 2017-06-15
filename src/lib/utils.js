@@ -90,7 +90,7 @@ export function coordinateToTimeRatio (canvasTimeStart, canvasTimeEnd, canvasWid
   return (canvasTimeEnd - canvasTimeStart) / canvasWidth
 }
 
-export function calculateDimensions ({ item, order, keys, canvasTimeStart, canvasTimeEnd, canvasWidth, dragSnap, lineHeight, draggingItem, dragTime, resizingItem, resizingEdge, resizeTime, newGroupOrder, itemHeightRatio, fullUpdate, visibleTimeStart, visibleTimeEnd }) {
+export function calculateDimensions ({ item, order, keys, canvasTimeStart, canvasTimeEnd, canvasWidth, dragSnap, lineHeight, draggingItem, dragTime, resizingItem, resizingEdge, resizeTime, newGroupOrder, itemHeightRatio, fullUpdate, visibleTimeStart, visibleTimeEnd, customHeightCalculator }) {
   var itemId = _get(item, keys.itemIdKey)
   var itemTimeStart = _get(item, keys.itemTimeStartKey)
   var itemTimeEnd = _get(item, keys.itemTimeEndKey)
@@ -141,19 +141,25 @@ export function calculateDimensions ({ item, order, keys, canvasTimeStart, canva
   }
 
   const ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth)
-  const h = lineHeight * itemHeightRatio
+  const width = Math.max(w * ratio, 3)
+  let h = lineHeight * itemHeightRatio
+  // get the margin WITHOUT the custom height
+  const verticalMargin = lineHeight - h
+  if(customHeightCalculator) {
+    h = customHeightCalculator(item, width, h) || h
+  }
 
   const dimensions = {
     left: (x - canvasTimeStart) * ratio,
     top: null,
-    width: Math.max(w * ratio, 3),
+    width,
     height: h,
     order: isDragging ? newGroupOrder : order,
     stack: !item.isOverlay,
     collisionLeft: collisionX,
     originalLeft: itemTimeStart,
     collisionWidth: collisionW,
-    lineHeight,
+    lineHeight: h + verticalMargin,
     isDragging,
     clippedLeft,
     clippedRight
@@ -218,8 +224,8 @@ export function stack (items, groupOrders, lineHeight, headerHeight, force) {
       verticalMargin = (item.dimensions.lineHeight - item.dimensions.height)
 
       if (item.dimensions.stack && item.dimensions.top === null) {
-        item.dimensions.top = totalHeight + verticalMargin
         groupHeight = Math.max(groupHeight, item.dimensions.lineHeight)
+        item.dimensions.top = totalHeight + verticalMargin
         do {
           var collidingItem = null
           for (var j = 0, jj = group.length; j < jj; j++) {

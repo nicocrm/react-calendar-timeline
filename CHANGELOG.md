@@ -7,33 +7,8 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 ## Unreleased
 When you submit a PR, add your changes here!
 
-## [0.14.0]
 ### Added
-- Use `headerLabelFormats` and `subHeaderLabelFormats` to customise the header labels. @Slowyn #68
-- Optional pluggable `resizeDetector` to detect when the element's container is resized. @Ziller321 #94
-
-### Fixed
-- Fix renders with empty `groups` array. @signalwerk #106
-
-## [0.13.0]
-### Added
-- An option to add another sidebar to the right of the Timeline. @goooseman #80
-- `itemRenderer` prop to allow specifying a custom component to render the items @nicocrm #103
-- `groupRenderer` prop to allow specifying a custom component to render the groups @nicocrm #103
-- `showCursorLine` prop to show a vertical line at the snap position @meikoudras
-- You can now select multiple items if you take control of the `selected` prop and the `onItemSelect` handler. @meengit #71
-- Canvas context menu handler `onCanvasContextMenu` @meikoudras
-
-### Fixed
-- Calculate width when we receive sidebar width property @jmerriweather #75
-- Avoid updating updateDimensions right after updateScrollCanvas @nicocrm #87
-- Fix typo collision detection in stack() @nicocrm #96
-- Remove dead code @signalwerk #101
-- Disable cursor style by interactjs @bkniffler #89
-- Fixed header width and Header label weekday support @meikoudras #66
-
-### Changed
-- [Deprecated] To have content above the left sidebar, pass it in a `sidebarContent={<div />}` prop, not as children to the component.
+- An option to calculate the item height dynamically
 
 ## [0.11.1]
 ### Fixed
@@ -70,5 +45,3 @@ When you submit a PR, add your changes here!
 [0.10.1]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.10.0...v0.10.1
 [0.11.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.10.1...v0.11.0
 [0.11.1]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.11.0...v0.11.1
-[0.13.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.11.1...v0.13.0
-[0.14.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.13.0...v0.14.0
