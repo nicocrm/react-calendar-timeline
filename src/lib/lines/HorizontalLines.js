@@ -20,7 +20,7 @@ export default class HorizontalLines extends Component {
   }
 
   render () {
-    const { lineCount, canvasWidth, groupHeights, headerHeight } = this.props
+    const { lineCount, canvasWidth, groupHeights, headerHeight, group } = this.props
     let lines = []
 
     var totalHeight = headerHeight
@@ -28,6 +28,8 @@ export default class HorizontalLines extends Component {
       lines.push(
         <div key={`horizontal-line-${i}`}
              className={i % 2 === 0 ? 'rct-hl-even' : 'rct-hl-odd'}
+             data-groupId={group.id}
+             data-groupTitle={group.title}
              style={{
                top: `${totalHeight}px`,
                left: '0px',
