@@ -316,7 +316,9 @@ export function getGroupedItems (items, groupOrders) {
   }
   // Populate groups
   for (let i = 0; i < items.length; i++) {
-    arr[items[i].dimensions.order].push(items[i])
+    if (items[i].dimensions.order) {
+      arr[items[i].dimensions.order].push(items[i])
+    }
   }
 
   return arr
