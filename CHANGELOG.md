@@ -7,6 +7,11 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 ## Unreleased
 When you submit a PR, add your changes here!
 
+## [0.14.2]
+### Changed
+- Use `prop-types` instead of `React.PropTypes` to support React 15.5+. @mariusandra #110
+
+## [0.14.0]
 ### Added
 - A minHeight property to ensure the timeline has a specified minimum height and excess space is spread among groups.
 
@@ -45,3 +50,9 @@ When you submit a PR, add your changes here!
 [0.10.1]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.10.0...v0.10.1
 [0.11.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.10.1...v0.11.0
 [0.11.1]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.11.0...v0.11.1
+<<<<<<< HEAD
+=======
+[0.13.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.11.1...v0.13.0
+[0.14.0]: https://github.com/namespace-ee/react-calendar-timeline/compare/v0.13.0...v0.14.0
+[0.14.2]: https://github.com/namespace-ee/react-calendar-timeline/compare/7483bbdf7d44de56a4576d64544631ea05be77cc...9a04baaffc87be993e9248d005790e4b11b80c4a
+>>>>>>> 595057df3aaa9c7aa17866bfd9831f2775919bd4
